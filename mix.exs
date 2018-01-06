@@ -1,28 +1,62 @@
+# defmodule Issues.Mixfile do
+#   use Mix.Project
+
+#   def project do
+#     [
+#       app: :issues,
+#       version: "0.1.0",
+#       elixir: "~> 1.5",
+#       start_permanent: Mix.env == :prod,
+#       deps: deps()
+#     ]
+#   end
+
+#   # Run "mix help compile.app" to learn about applications.
+#   def application do
+#     [
+#       extra_applications: [:logger, :httpoison]
+#     ]
+#   end
+
+#   # Run "mix help deps" to learn about dependencies.
+#   defp deps do
+#     [
+#       { :httpoison, "~> 0.9" },
+#       { :poison,    "~> 2.2" }
+#     ]
+#   end
+# end
+
 defmodule Issues.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :issues,
-      version: "0.1.0",
-      elixir: "~> 1.5",
+      app:             :issues,
+      escript:         escript_config,
+      version:         "0.0.1",
+      build_embedded:  Mix.env == :prod,
       start_permanent: Mix.env == :prod,
-      deps: deps()
+      deps:            deps()
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
+  # Configuration for OTP application
   def application do
     [
-      extra_applications: [:logger, :httpoison]
+      applications: [ :logger, :httpoison ]
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      { :httpoison, "~> 0.9" },
-      { :poison,    "~> 2.2" }
+      httpoison: "~> 0.9",
+      poison:    "~> 2.2"
     ]
   end
+
+  defp escript_config do
+    [ main_module: Issues.CLI ]
+  end
 end
+
